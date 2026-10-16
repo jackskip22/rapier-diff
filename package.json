@@ -1,0 +1,35 @@
+{
+  "name": "rapier-diff",
+  "version": "2.1.1",
+  "description": "Exact, readable changes in prose and code.",
+  "type": "module",
+  "license": "MIT",
+  "sideEffects": false,
+  "exports": {
+    ".": "./index.mjs",
+    "./lines": "./lines.mjs",
+    "./html": "./html.mjs",
+    "./patch": "./patch.mjs",
+    "./restore": "./restore.mjs",
+    "./summary": "./summary.mjs",
+    "./markdown": "./markdown.mjs",
+    "./js": "./js.mjs",
+    "./merge": "./merge.mjs"
+  },
+  "files": [
+    "*.mjs",
+    "README.md",
+    "LICENSE",
+    "demo.html",
+    "BENCHMARK.md",
+    "bench/"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jackskip22/rapier-diff.git"
+  },
+  "homepage": "https://github.com/jackskip22/rapier-diff#readme",
+  "bugs": {
+    "url": "https://github.com/jackskip22/rapier-diff/issues"
+  }
+}
