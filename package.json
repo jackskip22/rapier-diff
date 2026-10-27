@@ -1,0 +1,66 @@
+{
+  "name": "rapier-diff",
+  "version": "2.2.0",
+  "description": "Exact, readable changes in prose and code.",
+  "type": "module",
+  "license": "MIT",
+  "sideEffects": false,
+  "types": "./index.d.mts",
+  "exports": {
+    ".": {
+      "types": "./index.d.mts",
+      "default": "./index.mjs"
+    },
+    "./lines": {
+      "types": "./lines.d.mts",
+      "default": "./lines.mjs"
+    },
+    "./html": {
+      "types": "./html.d.mts",
+      "default": "./html.mjs"
+    },
+    "./review": {
+      "types": "./review.d.mts",
+      "default": "./review.mjs"
+    },
+    "./patch": {
+      "types": "./patch.d.mts",
+      "default": "./patch.mjs"
+    },
+    "./restore": {
+      "types": "./restore.d.mts",
+      "default": "./restore.mjs"
+    },
+    "./summary": {
+      "types": "./summary.d.mts",
+      "default": "./summary.mjs"
+    },
+    "./markdown": {
+      "types": "./markdown.d.mts",
+      "default": "./markdown.mjs"
+    },
+    "./js": {
+      "types": "./js.d.mts",
+      "default": "./js.mjs"
+    },
+    "./merge": {
+      "types": "./merge.d.mts",
+      "default": "./merge.mjs"
+    }
+  },
+  "files": [
+    "*.mjs",
+    "*.d.mts",
+    "README.md",
+    "LICENSE",
+    "demo.html"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jackskip22/rapier-diff.git"
+  },
+  "homepage": "https://github.com/jackskip22/rapier-diff#readme",
+  "bugs": {
+    "url": "https://github.com/jackskip22/rapier-diff/issues"
+  }
+}
