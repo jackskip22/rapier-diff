@@ -5,7 +5,7 @@ export function separate(c, endA = c.before.length, endB = c.after.length) {
   const {before, after, safe, raw, spend} = c;
   if (!raw) for (let i = c.result.length - 1; i > 0; i--) {
     const p = c.result[i - 1], q = c.result[i], side = p[0][0] === p[0][1] ? 1 : p[1][0] === p[1][1] ? 0 : -1, text = side ? after : before;
-    if (side >= 0 && !/\S/.test(text.slice(...p[side]))) {
+    if (!c.evidence && side >= 0 && !/\S/.test(text.slice(...p[side]))) {
       let n = 0;
       while (p[0][1] + n < q[0][0] && text[p[side][0] + n] === text[p[side][1] + n] && spend()) n++;
       if (p[0][1] + n === q[0][0] && p.slice(0, 2).every((span, k) => safe(k ? after : before, span[0] + n) && safe(k ? after : before, span[1] + n)))
@@ -20,7 +20,7 @@ export function separate(c, endA = c.before.length, endB = c.after.length) {
     keep[3][0] = x[0] === x[1] ? 2 : y[0] === y[1] ? 0 : 1;
     c.result.splice(i - 1, 2, [x, y, false, keep[3]]);
   }
-  if (!raw) for (let i = 0; i < c.result.length; i++) {
+  if (!raw && !c.evidence) for (let i = 0; i < c.result.length; i++) {
     const p = c.result[i], q = c.result[i + 1], side = p[0][0] === p[0][1] ? 1 : p[1][0] === p[1][1] ? 0 : -1;
     if (side < 0 || p[2]) continue;
     const text = side ? after : before;

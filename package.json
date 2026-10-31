@@ -1,6 +1,6 @@
 {
   "name": "rapier-diff",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Exact, readable changes in prose and code.",
   "type": "module",
   "license": "MIT",

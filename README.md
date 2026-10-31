@@ -101,17 +101,17 @@ Needs ES2022 and `Intl.Segmenter`; types ship as `.d.mts`. Bundles: esbuild, min
 <!-- sizes:start -->
 | Bundled import | Minified bytes | Gzip bytes |
 | --- | ---: | ---: |
-| index | 28,879 | 12,407 |
-| diff only | 23,417 | 10,142 |
+| index | 28,905 | 12,419 |
+| diff only | 23,443 | 10,154 |
 | lines | 4,306 | 2,192 |
-| merge | 28,868 | 12,403 |
+| merge | 28,894 | 12,415 |
 | jsdiff 9.0.0 | 22,926 | 8,299 |
 | jsdiff diffWordsWithSpace, diffLines | 6,986 | 2,708 |
 | diff-match-patch 1.0.5 | 19,710 | 6,544 |
 
 | Module | Source bytes | Minified bytes | Gzip bytes |
 | --- | ---: | ---: | ---: |
-| `concerns.mjs` | 9,205 | 5,556 | 2,480 |
+| `concerns.mjs` | 9,235 | 5,582 | 2,491 |
 | `diff.mjs` | 3,757 | 2,359 | 1,225 |
 | `html.mjs` | 6,268 | 4,366 | 1,895 |
 | `index.mjs` | 122 | 99 | 84 |

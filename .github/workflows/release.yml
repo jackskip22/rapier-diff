@@ -1,0 +1,49 @@
+name: Release
+on:
+  workflow_run:
+    workflows: [Publish]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: release
+  cancel-in-progress: false
+jobs:
+  release:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - name: tag v<version> and a GitHub Release with its CHANGELOG.md section, once the registry has it
+        run: |
+          set -eu
+          name=$(node -p "require('./package.json').name")
+          version=$(node -p "require('./package.json').version")
+          tag="v$version"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo "$tag is already released" | tee -a "$GITHUB_STEP_SUMMARY"; exit 0
+          fi
+          if [ -z "$(npm view "$name@$version" version 2>/dev/null)" ]; then
+            echo "$name@$version is not on the registry: no release" >&2; exit 1
+          fi
+          node -e '
+            const version = process.argv[1], lines = require("fs").readFileSync("CHANGELOG.md", "utf8").split("\n");
+            const start = lines.findIndex(line => line.startsWith("## " + version + " ") || line === "## " + version);
+            if (start < 0) { console.error("CHANGELOG.md has no section for " + version); process.exit(1); }
+            const end = lines.findIndex((line, index) => index > start && line.startsWith("## "));
+            process.stdout.write(lines.slice(start + 1, end < 0 ? undefined : end).join("\n").trim() + "\n");
+          ' "$version" > "$RUNNER_TEMP/notes.md"
+          # The run's token may push a tag but may not ask the API to create one (HTTP 403): tag with git, then release that tag.
+          if ! git ls-remote --exit-code --tags origin "refs/tags/$tag" >/dev/null 2>&1; then
+            git tag "$tag" "$SHA"
+            git push origin "refs/tags/$tag"
+          fi
+          gh release create "$tag" --verify-tag --title "$version" --notes-file "$RUNNER_TEMP/notes.md"
+          echo "released $tag" | tee -a "$GITHUB_STEP_SUMMARY"
